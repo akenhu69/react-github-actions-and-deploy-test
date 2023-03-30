@@ -41,4 +41,10 @@ jobs:
 
       - name: Display structure of downloaded files
         run: ls -R
+      - name: Zip build
+        uses: thedoctor0/zip-release@master
+        with:
+          type: 'zip'
+          filename: react-github-actions-release-build.zip
+          path: react-github-actions-build
         # working-directory: react-github-actions-build

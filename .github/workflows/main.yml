@@ -63,6 +63,7 @@ jobs:
           SCRIPT_AFTER: |
             cd ${{ secrets.SSH_REMOTE_TARGET }}
             unzip react-github-actions-release-build.zip
+            rm -rf react-github-actions-release-build.zip 
 
 
 

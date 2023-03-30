@@ -48,3 +48,21 @@ jobs:
           filename: react-github-actions-release-build.zip
           path: ./
         # working-directory: react-github-actions-build
+      - name: SSH Deploy Zip build
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+#         ARGS: "-avz --delete"
+          SOURCE: "react-github-actions-release-build.zip"
+          REMOTE_HOST: ${{ secrets.SSH_HOST }}
+          REMOTE_USER: ${{ secrets.SSH_USER }}
+          REMOTE_PORT: ${{ secrets.SSH_PORT }}
+          TARGET: ${{ secrets.SSH_REMOTE_TARGET }}
+          SCRIPT_BEFORE: |
+            mkdir -p /var/www/html/test/react-github-actions-and-deploy-test
+          SCRIPT_AFTER: |
+            cd ${{ secrets.SSH_REMOTE_TARGET }} unzip react-github-actions-release-build.zip
+
+
+
+        

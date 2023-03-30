@@ -16,10 +16,28 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
-          cache: 'yarn'  
       - name: Install yarn and run unittest
         run: | 
           yarn 
           yarn build
         env:
           CI: true
+      # Share artifact inside workflow
+      - name: Share artifact inside workflow
+        uses: actions/upload-artifact@v3
+        with:
+          name: react-github-actions-build
+          path: build
+  deploy:
+    runs-on: ubuntu-latest
+
+    needs: build
+    steps:
+      - name: Get artifacet
+        uses: actions/download-artifact@v3
+        with:
+          name: react-github-actions-build
+
+      - name: Display structure of downloaded files
+        run: ls -R
+        working-directory: react-github-actions-build
